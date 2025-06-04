@@ -56,16 +56,16 @@ Extra:
   - [] Topic input field
   - [] Goal input field
   - [] Depth selector (1-5)
-  - [] Course size selector
+  <!-- - [] Course size selector -->
 - [] Implement AI course generation:
   - [] Course structure generation with strict schema
-- [] Size/depth compatibility warning
-- 
+
 Extra:
 - [] Add course validation:
   - [] Size/depth compatibility checks
   - [] Accuracy warning system
 - [] Save course structure to the database
+- [] Size/depth compatibility warning
 
 ### Learning Platform
 - [] Create a mini-app

@@ -8,7 +8,7 @@ Everything Learn is an adaptive learning platform combining AI-powered content g
 Create a scalable learning ecosystem where users can:
 * Generate personalized courses within 2 minutes
 * Receive AI-proctored assessments
-* Earn immutable blockchain credentials
+* Earn immutable blockchain certificates
 
 
 ## User Stories
