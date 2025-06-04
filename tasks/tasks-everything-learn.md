@@ -9,8 +9,7 @@
     - Topic
     - Goal
     - Depth
-    - Size
-    - Resources (main resourses to use for consistent content generation)
+    <!-- - Resources (main resourses to use for consistent content generation) -->
   - [] Course
     - Module
     - Topic
@@ -22,7 +21,22 @@
     - Course
     - Module
       - Topic
-        - Exam Passed? 
+        - Exam Passed?
+
+### Contract with AI        
+#### Request:
+Course Configuration
+    - Topic
+    - Goal
+    - Depth
+
+#### Response:
+Syllabus:    
+  Modules[]:
+    Topics[]:
+      Summary: String
+      Keywords: String[]
+  Keywords: String[]     
 
 ### Landing
 - [] Create landing page with:
@@ -60,7 +74,8 @@ Extra:
 - [] Implement AI course generation:
   - [] Course structure generation with strict schema
 - [] Size/depth compatibility warning
-- 
+
+
 Extra:
 - [] Add course validation:
   - [] Size/depth compatibility checks
