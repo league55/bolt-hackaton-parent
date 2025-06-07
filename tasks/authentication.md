@@ -9,3 +9,7 @@ Create a secure authentication system with Supabase integration for a web applic
 
 
 Please handle properly signup/login flows, redirections and corner cases
+
+All tabs should be shown in the menu.
+Profile is fully secure flow and should redirect to login.
+Courses library is public for now

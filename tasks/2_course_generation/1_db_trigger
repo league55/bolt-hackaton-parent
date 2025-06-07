@@ -1,0 +1,17 @@
+Please create an edge function that will be triggered by database trigger.
+
+High level:
+When course configuration gets submitted, edge function should pick it up and call AI to generate syllabus and then update syllabus in the database.
+
+Details:
+Should use zod schema to enforse response structure
+Should use appropriate AI model, for example OpenAI’s GPT-4/4o.
+
+
+Rules:  
+- {depth}1: 3 modules, 3 topics/module, basic resources  
+- {depth}5: 5 modules, 8 topics/module, academic papers + advanced tutorials  
+- Resources must match depth level
+
+
+-- comment: db trigger is a bit tricky to make due to secrets managements. for now, calling from UI instead.    
