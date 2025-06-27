@@ -1,1 +1,53 @@
-Using elevenlabs, to generate audio version of the content.
+Learners should be able to generate and listen to audio narration for course topics. This involves a frontend UI to trigger generation, a backend process using Supabase Edge Functions for text cleaning and text-to-speech (TTS) conversion, storage of the generated audio, and an interactive audio player for playback.
+
+Implementation Steps:
+
+Frontend UI (src/components/course/floating-audio-controls.tsx):
+
+Integrate the useAudioContent hook.
+Render a "Generate Audio" button when no audio exists or is being generated.
+Display loading indicators (Loader2) and messages during generation.
+Display the AudioPlayer component when audio is available.
+Implement getTextForAudio to intelligently select source text (prefer fullContent if available and substantial, otherwise use topicContent).
+Add useToast notifications for generation start, success, and failure, including a warning if topicContent is used for short audio.
+Implement close and expand/collapse functionality for the control panel.
+Frontend Logic (src/components/learn-course/audio-content-manager.tsx):
+
+Complete the useAudioContent hook.
+Implement the useEffect to load existing audio_generation_jobs for the current courseId, moduleIndex, and topicIndex. Ensure it checks for completed, pending, and processing jobs.
+Implement the polling useEffect to periodically check the status of the audio_generation_jobs table and update the audioJob state.
+Implement the handleGenerateAudio function to:
+Call dbOperations.createAudioGenerationJob with the selected text.
+Invoke the elevenlabs-audio-generate Supabase Edge Function, passing the job_id and source text.
+Handle initial loading state and toast notifications.
+Backend Edge Function (supabase/functions/elevenlabs-audio-generate/index.ts):
+
+Ensure the function correctly:
+Parses and validates the incoming request (using AudioGenerationRequestSchema).
+Initializes Supabase client with service role key.
+Updates the audio_generation_jobs table status to 'processing' and sets started_at.
+Calls the ai-text-cleaner Edge Function to get cleaned text. Implement a fallback to fallbackCleanTextForTTS if the AI cleaning fails.
+Calls the ElevenLabs API to generate audio from the cleaned text. Handle potential chunking for long texts.
+Uploads the generated audio (Uint8Array) to the course-audio Supabase Storage bucket, using a descriptive file path.
+Calculates duration_seconds based on word count (e.g., 150 words per minute).
+Updates the audio_generation_jobs table status to 'completed', including audio_file_path, audio_file_size, and duration_seconds.
+Handles errors by updating the job status to 'failed' and setting error_message.
+Backend Edge Function (supabase/functions/ai-text-cleaner/index.ts):
+
+Ensure the cleanTextWithAI function:
+Uses OpenAI's gpt-4o-mini model.
+Applies all specified cleaning rules (remove markdown, URLs, citations, convert lists to narrative, remove code blocks, rewrite "click here" phrases).
+Targets a specific audio duration (e.g., 5 minutes).
+Returns a JSON object with cleaned_text, word_count, estimated_duration_minutes, removed_elements, and summary.
+Includes retry logic with exponential backoff.
+Ensure the Deno server handles OPTIONS requests for CORS.
+Database Schema (supabase/migrations/...sql):
+
+Verify the audio_generation_jobs table and its RLS policies are correctly defined as per the provided schema.
+Verify the get_topic_audio and create_audio_generation_job RPC functions are correctly defined.
+Important Considerations:
+
+Error Handling: Implement comprehensive try-catch blocks and update job statuses appropriately.
+Performance: Optimize database queries and API calls.
+Security: Ensure service role keys are used only where necessary and RLS policies are respected.
+Existing Code: Adhere strictly to the existing project structure, naming conventions, and coding style (TypeScript, React functional components, Shadcn UI, Tailwind CSS). Do not introduce new UI libraries or components unless explicitly required.
