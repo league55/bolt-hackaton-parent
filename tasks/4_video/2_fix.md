@@ -1,5 +1,5 @@
 To initiate a conversation with Tavus's Conversational Video Interface (CVI), you need to create a conversation using the Create Conversation API endpoint. 
-
+ 
 Step 1: Create a Conversation
 Use the POST /v2/conversations endpoint to initiate a conversation:
 

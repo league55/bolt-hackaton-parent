@@ -1,5 +1,5 @@
 ## Task: Integrate Blockchain-Based Certification System into Course Library Application
-
+ 
 This task involves integrating the newly developed blockchain-based certification system into the existing Orion Path course library application. The goal is to enable users to manage their Algorand addresses, automatically issue certificates upon course completion, display earned certificates, and provide a public certificate verification mechanism.
 
 ### Implementation Details:
