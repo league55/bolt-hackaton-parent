@@ -1,0 +1,7 @@
+Can we improve the flow of creating course?
+
+When anonimus should remember course configuration, after user logs in / registers should submit course generation
+After course submitted, we want to communicate that generation might take a couple of minutes, in meanwhile, users can browse existing course library.
+As course being generated, it should be shown in course library as "being generated", with some animated gears
+Should have "retry" button if course generation failed
+Should schedule content generation for topics of the first module automatically after course syllabus is generated.
