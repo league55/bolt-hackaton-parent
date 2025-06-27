@@ -33,3 +33,31 @@ After submitting the form we will send it to supabase. but lets do that in the n
 
 
 Regearding the looks, I really like  
+
+
+---- 
+Validation:
+
+When submitting courses, users might want to generate some inappropriate or illegal, harmful content. We need to add validation to prevent that.
+
+I am thinking of:
+
+    In the edge function, before creating a course, call OpenAI's Moderation API (omni-moderation-latest) with the user's input text before processing
+    Check the flagged property in the API response. If true, block submission and trigger feedback
+
+    If the content is flagged, provide toast response: "This topic doesn't meet our content guidelines. Please try a different subject."
+
+something like:
+// Edge function pseudocode
+async function validateContent(inputText) {
+  const moderation = await openai.moderations.create({
+    input: inputText,
+    model: "omni-moderation-latest"
+  });
+  
+  if (moderation.results[0].flagged) {
+    throw new Error("CONTENT_VIOLATION"); // Custom error type
+  }
+  return true;
+}
+
